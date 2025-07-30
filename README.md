@@ -1,12 +1,7 @@
-# React + Vite
+### Projeto Frontend Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este projeto é um desafio de frontend que consiste no desenvolvimento de uma aplicação web para listagem e detalhamento de personagens de quadrinhos, utilizando a API oficial da Marvel. O objetivo principal é criar uma SPA (Single Page Application) com React, permitindo ao usuário visualizar personagens, pesquisar por nome, ordenar resultados e gerenciar uma lista de favoritos com limite de até cinco personagens.
 
-Currently, two official plugins are available:
+A aplicação conta com duas páginas principais: uma de listagem, onde são exibidos os personagens e opções de filtro, ordenação e favoritos; e uma de detalhes, que apresenta informações completas do personagem selecionado, incluindo seus últimos quadrinhos lançados. O layout e a estrutura seguem as orientações fornecidas na pasta de assets do desafio.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Além dos requisitos funcionais, o projeto prioriza boas práticas de código, organização, responsividade e experiência do usuário. O código está disponível neste repositório para avaliação, com instruções claras para instalação e execução.
