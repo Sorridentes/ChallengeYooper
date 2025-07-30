@@ -54,7 +54,7 @@ function HeroesArray() {
             <p>Encontramos {numberHeroes} heróis</p>
             <Toggle />
           </div>
-          <CharactersCards />
+          <CharactersCards tasks={tasks} />
         </div>
       </div>
       <footer>Criado por Rodrigo Silva</footer>
