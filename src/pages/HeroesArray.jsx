@@ -3,7 +3,6 @@ import "../HeroesArray.css";
 // import axios from "axios";
 import data from "../apiMavel.json";
 import logoMarvel from "../assets/logo/Group.png";
-import heroIcon from "../assets/icones/heroi/noun_Superhero_2227044.png";
 import Search from "../components/Search";
 import Toggle from "../components/Toggle";
 import CharactersCards from "../components/CharactersCards";
@@ -14,9 +13,14 @@ function HeroesArray() {
   const API_HASH_KEY = "7b3ca3b47d3c535bc3075c437b6c5892";
   const API_URL = "http://gateway.marvel.com/v1/public";
   const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("task")) || []
-  );
+    JSON.parse(localStorage.getItem("tasks")) || []
+  ); // novo estado
+  const [filteredTasks, setFilteredTasks] = useState([]);
   const [numberHeroes, setNumberHeroes] = useState();
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(filteredTasks));
+  }, [filteredTasks]);
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -29,32 +33,48 @@ function HeroesArray() {
       //   },
       // });
       // const data = await response.data;
-      setTasks(data.data.results);
+      setTasks(data.data.results); // salva todos os personagens
+      setFilteredTasks(data.data.results);
       setNumberHeroes(data.data.count);
     };
     fetchCharacters();
   }, []);
 
+  function onFilterByName(name) {
+    if (!name) {
+      setFilteredTasks(tasks); // sempre use o array completo
+      setNumberHeroes(tasks.length);
+      return;
+    }
+    const filteredTasks = tasks.filter(
+      (task) => task.name.toLowerCase() === name.toLowerCase()
+    );
+    setFilteredTasks(filteredTasks);
+    setNumberHeroes(filteredTasks.length);
+  }
+
   return (
     <>
       <div>
-        <div>
-          <img src={logoMarvel} alt="Logo da Marvel" />
+        <div className="header">
+          <div>
+            <img src={logoMarvel} alt="Logo da Marvel" />
+          </div>
+          <div>
+            <h1>EXPLORE O UNIVERSO</h1>
+            <h4>
+              Mergulhe no domínio deslumbrante de todos os personagens clásicos
+              que você ama - e aqueles qu você descobrirá em breve!
+            </h4>
+          </div>
+          <Search tasks={tasks} onFilterByName={onFilterByName} />
         </div>
-        <div>
-          <h1>EXPLORE O UNIVERSO</h1>
-          <h4>
-            Mergulhe no domínio deslumbrante de todos os personagens clásicos
-            que você ama - e aqueles qu você descobrirá em breve!
-          </h4>
-        </div>
-        <Search />
         <div>
           <div>
             <p>Encontramos {numberHeroes} heróis</p>
             <Toggle />
           </div>
-          <CharactersCards tasks={tasks} />
+          <CharactersCards filteredTasks={filteredTasks} />
         </div>
       </div>
     </>

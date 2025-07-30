@@ -1,11 +1,54 @@
-function Search(props) {
-    return (
+import { useState } from "react";
+import searchIcon from "../assets/busca/Lupa/Shape.png";
+
+function Search({ tasks, onFilterByName }) {
+  const [searchInput, setSearchInput] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
+
+  return (
+    <div className="search-container">
+      <div>
+        <img src={searchIcon} alt="ícone de busca" onClick={() => {onFilterByName(searchInput)}} />
         <input
-            type="text"
-            placeholder="Pequisa por heróis.."
-            onChange={(e) => props.onSearch(e.target.value)}
+          type="text"
+          placeholder="Pesquise pelo nome do herói"
+          value={searchInput}
+          onChange={(event) => {
+            const value = event.target.value;
+            setSearchInput(value);
+
+            if (value.length == 0) {
+              setSuggestions([]);
+              return;
+            }
+
+            const filteredNames = tasks
+              .map((hero) => hero.name)
+              .filter((name) =>
+                name.toLowerCase().includes(value.toLowerCase())
+              );
+            setSuggestions(filteredNames);
+          }}
         />
-    );
+      </div>
+      {suggestions.length > 0 && (
+        <ul>
+          {suggestions.map((name, id) => (
+            <li
+              key={id}
+              onClick={() => {
+                setSearchInput(name);
+                setSuggestions([]);
+                onFilterByName(name);
+              }}
+            >
+              {name}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  );
 }
 
 export default Search;
