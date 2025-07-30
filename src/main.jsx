@@ -1,12 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
-import HerosArray from "./pages/HerosArray.jsx";
+import HeroesArray from "./pages/HeroesArray.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import CharacterDetail from "./pages/CharacterDetail.jsx";
 
 const router = createBrowserRouter([
-  { path: "/", element: <HerosArray /> },
+  { path: "/", element: <HeroesArray /> },
   { path: "/descrição", element: <CharacterDetail /> },
 ]);
 
