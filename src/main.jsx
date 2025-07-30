@@ -7,11 +7,12 @@ import CharacterDetail from "./pages/CharacterDetail.jsx";
 
 const router = createBrowserRouter([
   { path: "/", element: <HeroesArray /> },
-  { path: "/descrição", element: <CharacterDetail /> },
+  { path: "/descricao", element: <CharacterDetail /> },
 ]);
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
+    <footer>Criado por Rodrigo Silva</footer>
   </StrictMode>
 );

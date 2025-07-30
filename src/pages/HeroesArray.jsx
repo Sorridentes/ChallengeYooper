@@ -16,6 +16,7 @@ function HeroesArray() {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("task")) || []
   );
+  const [numberHeroes, setNumberHeroes] = useState();
 
   useEffect(() => {
     const fetchCharacters = async () => {
@@ -29,11 +30,10 @@ function HeroesArray() {
       // });
       // const data = await response.data;
       setTasks(data.data.results);
+      setNumberHeroes(data.data.count);
     };
     fetchCharacters();
   }, []);
-
-  const [numberHeroes] = useState(data.data.count);
 
   return (
     <>
@@ -57,7 +57,6 @@ function HeroesArray() {
           <CharactersCards tasks={tasks} />
         </div>
       </div>
-      <footer>Criado por Rodrigo Silva</footer>
     </>
   );
 }

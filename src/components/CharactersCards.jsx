@@ -1,9 +1,9 @@
 import FavoriteButton from './FavoriteButton';
 
-function CharactersCards(props) {
+function CharactersCards({ tasks }) {
     return (
         <div className="characters-cards">
-        {props.tasks.map((task) => (
+        {tasks.map((task) => (
             <button key={task.id} className="character-card">
                 <img
                     src={`${task.thumbnail.path}/standard_medium.${task.thumbnail.extension}`}
