@@ -8,7 +8,13 @@ function Search({ tasks, onFilterByName }) {
   return (
     <div className="search-container">
       <div>
-        <img src={searchIcon} alt="ícone de busca" onClick={() => {onFilterByName(searchInput)}} />
+        <img
+          src={searchIcon}
+          alt="ícone de busca"
+          onClick={() => {
+            onFilterByName(searchInput);
+          }}
+        />
         <input
           type="text"
           placeholder="Pesquise pelo nome do herói"
@@ -28,6 +34,12 @@ function Search({ tasks, onFilterByName }) {
                 name.toLowerCase().includes(value.toLowerCase())
               );
             setSuggestions(filteredNames);
+          }}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              onFilterByName(searchInput);
+              setSuggestions([]);
+            }
           }}
         />
       </div>

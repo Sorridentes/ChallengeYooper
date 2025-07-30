@@ -17,6 +17,7 @@ function HeroesArray() {
   ); // novo estado
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [numberHeroes, setNumberHeroes] = useState();
+  const [toggleState, setToggleState] = useState(false);
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(filteredTasks));
@@ -33,8 +34,8 @@ function HeroesArray() {
       //   },
       // });
       // const data = await response.data;
-      setTasks(data.data.results); // salva todos os personagens
-      setFilteredTasks(data.data.results);
+      setTasks([...data.data.results, { favorite: false }]);
+      setFilteredTasks([...data.data.results, { favorite: false }]);
       setNumberHeroes(data.data.count);
     };
     fetchCharacters();
@@ -46,11 +47,22 @@ function HeroesArray() {
       setNumberHeroes(tasks.length);
       return;
     }
-    const filteredTasks = tasks.filter(
-      (task) => task.name.toLowerCase() === name.toLowerCase()
+    const filteredTasks = tasks.filter((task) =>
+      task.name.toLowerCase().includes(name.toLowerCase())
     );
     setFilteredTasks(filteredTasks);
     setNumberHeroes(filteredTasks.length);
+  }
+
+  function handleToggleChange() {
+    setToggleState(!toggleState);
+
+    if (toggleState) {
+      setFilteredTasks(() =>
+        filteredTasks.filter((task) => task.favorite === true)
+      );
+    } else {
+    }
   }
 
   return (
@@ -72,7 +84,10 @@ function HeroesArray() {
         <div>
           <div>
             <p>Encontramos {numberHeroes} heróis</p>
-            <Toggle />
+            <Toggle
+              toggleState={toggleState}
+              handleToggleChange={handleToggleChange}
+            />
           </div>
           <CharactersCards filteredTasks={filteredTasks} />
         </div>
