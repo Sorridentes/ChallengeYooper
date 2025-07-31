@@ -40,3 +40,13 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(24px);
 } */
+.heart-svg {
+  width: 32px;
+  height: 32px;
+  stroke: #e62429;
+  fill: none;
+  transition: fill 0.2s;
+}
+.heart-svg.filled {
+  fill: #e62429;
+}

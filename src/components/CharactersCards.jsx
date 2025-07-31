@@ -1,6 +1,6 @@
 import FavoriteButton from "./FavoriteButton";
 
-function CharactersCards({ filteredTasks }) {
+function CharactersCards({ filteredTasks, updateFavorite }) {
   return (
     <div className="characters-cards">
       {filteredTasks.map((task) => (
@@ -11,7 +11,10 @@ function CharactersCards({ filteredTasks }) {
           />
           <div>
             <h3 className="character-name">{task.name}</h3>
-            <FavoriteButton />
+            <FavoriteButton
+              isFavorite={task.favorite}
+              onSwitchFavorite={() => updateFavorite(task.id)}
+            />
           </div>
         </div>
       ))}
