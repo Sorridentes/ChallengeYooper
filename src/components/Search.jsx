@@ -13,11 +13,12 @@ function Search({ tasks, onFilterByName }) {
           alt="ícone de busca"
           onClick={() => {
             onFilterByName(searchInput);
+            setSuggestions([]);
           }}
         />
         <input
           type="text"
-          placeholder="Pesquise pelo nome do herói"
+          placeholder="Procure por heróis"
           value={searchInput}
           onChange={(event) => {
             const value = event.target.value;

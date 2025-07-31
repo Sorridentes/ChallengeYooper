@@ -14,10 +14,12 @@ function HeroesArray() {
   const API_URL = "http://gateway.marvel.com/v1/public";
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
-  ); // novo estado
+  );
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [numberHeroes, setNumberHeroes] = useState();
   const [toggleState, setToggleState] = useState(false);
+  const [countFavorite, setCountFavorite] = useState(0);
+  const [searchTerm, setSearchInput] = useState("");
 
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(filteredTasks));
@@ -34,35 +36,64 @@ function HeroesArray() {
       //   },
       // });
       // const data = await response.data;
-      setTasks([...data.data.results, { favorite: false }]);
-      setFilteredTasks([...data.data.results, { favorite: false }]);
-      setNumberHeroes(data.data.count);
+      const tasksWithFavorites = data.data.results.map((task) => ({
+        ...task,
+        favorite: false,
+      }));
+
+      setTasks(tasksWithFavorites);
+      setFilteredTasks(tasksWithFavorites);
+      setNumberHeroes(tasksWithFavorites.length);
     };
     fetchCharacters();
   }, []);
 
   function onFilterByName(name) {
-    if (!name) {
-      setFilteredTasks(tasks); // sempre use o array completo
-      setNumberHeroes(tasks.length);
-      return;
+    setSearchInput(name);
+    let result = [...tasks];
+
+    if (name) {
+      result = result.filter((task) =>
+        task.name.toLowerCase().includes(name.toLowerCase())
+      );
     }
-    const filteredTasks = tasks.filter((task) =>
-      task.name.toLowerCase().includes(name.toLowerCase())
-    );
-    setFilteredTasks(filteredTasks);
-    setNumberHeroes(filteredTasks.length);
+
+    if (toggleState) result = result.filter((task) => task.favorite);
+    else result = result.sort((a, b) => a.name.localeCompare(b.name));
+
+    setFilteredTasks(result);
+    setNumberHeroes(result.length);
+  }
+
+  function addFavorite(id) {
+    if (countFavorite < 5) {
+      const updatedTasks = filteredTasks.map((task) => {
+        if (task.id === id) {
+          return { ...task, favorite: !task.favorite };
+        }
+        return task;
+      });
+      setFilteredTasks(updatedTasks);
+      setCountFavorite((prevCount) =>
+        updatedTasks.find((task) => task.favorite) ? prevCount + 1 : prevCount
+      );
+    }
   }
 
   function handleToggleChange() {
     setToggleState(!toggleState);
 
-    if (toggleState) {
-      setFilteredTasks(() =>
-        filteredTasks.filter((task) => task.favorite === true)
+    let result = [...tasks];
+
+    if (searchTerm)
+      result = result.filter((task) =>
+        task.name.toLowerCase().includes(searchTerm.toLowerCase())
       );
-    } else {
-    }
+
+    if (!toggleState) result = result.filter((task) => task.favorite);
+    else result = result.sort((a, b) => a.name.localeCompare(b.name));
+    setFilteredTasks(result);
+    setNumberHeroes(result.length);
   }
 
   return (
@@ -79,7 +110,11 @@ function HeroesArray() {
               que você ama - e aqueles qu você descobrirá em breve!
             </h4>
           </div>
-          <Search tasks={tasks} onFilterByName={onFilterByName} />
+          <Search
+            tasks={tasks}
+            searchInput={searchTerm}
+            onFilterByName={onFilterByName}
+          />
         </div>
         <div>
           <div>
