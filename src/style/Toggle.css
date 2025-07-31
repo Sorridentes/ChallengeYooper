@@ -1,4 +1,17 @@
-/* Sugestão: coloque em HeroesArray.css ou um arquivo global
+.toggle-container {
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.toggle-container img{
+    width: 14px;
+}
+
+.toggle-container 
+/* 
 .switch {
   position: relative;
   display: inline-block;
@@ -15,9 +28,12 @@
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background-color: #ccc;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 24px;
 }
 
@@ -29,7 +45,7 @@
   left: 3px;
   bottom: 3px;
   background-color: white;
-  transition: .4s;
+  transition: 0.4s;
   border-radius: 50%;
 }
 
@@ -40,13 +56,3 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(24px);
 } */
-.heart-svg {
-  width: 32px;
-  height: 32px;
-  stroke: #e62429;
-  fill: none;
-  transition: fill 0.2s;
-}
-.heart-svg.filled {
-  fill: #e62429;
-}

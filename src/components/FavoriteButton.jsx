@@ -11,7 +11,6 @@ function FavoriteButton({ isFavorite, onSwitchFavorite }) {
         className={`heart-svg${isFavorite ? " filled" : ""}`}
         style={{
           cursor: "pointer",
-          transition: "fill 0.2s",
         }}
         width="20px"
         height="20px"
@@ -31,7 +30,7 @@ function FavoriteButton({ isFavorite, onSwitchFavorite }) {
             id="Guide"
             transform="translate(-231.000000, -828.000000)"
             fill-rule="nonzero"
-            stroke="#FF0000"
+            stroke="#e62429"
             stroke-width="2"
           >
             <path

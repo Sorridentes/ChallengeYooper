@@ -1,0 +1,65 @@
+.heart-svg {
+  width: 32px;
+  height: 32px;
+  stroke: #e62429;
+  fill: none;
+  transition: fill 0.2s;
+}
+.heart-svg.filled {
+  fill: #e62429;
+}
+
+.heroes-container {
+  background-color: #fdfdfd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 1.5em;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+
+}
+
+.logo {
+  height: auto;
+  width: 250px;
+}
+
+.header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header-content h1 {
+  font-size: 1.5rem;
+}
+
+.header-content h4 {
+  font-size: 0.8rem;
+  color: #8c8c8c;
+}
+
+.content-container {
+  display: grid;
+  width: 100%;
+}
+
+.heroes-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.heroes-count {
+  font-size: 0.8em;
+  font-weight: bolder;
+  color: #b9b9b9;
+}

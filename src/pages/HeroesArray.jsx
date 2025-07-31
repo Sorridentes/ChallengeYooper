@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "../HeroesArray.css";
+import "../style/HeroesArray.css";
 import data from "../apiMavel.json";
 import logoMarvel from "../assets/logo/Group.png";
 import Search from "../components/Search";
@@ -86,12 +86,12 @@ function HeroesArray({ onSwitchFavorite }) {
 
   return (
     <>
-      <div>
+      <div className="heroes-container">
         <div className="header">
           <div>
-            <img src={logoMarvel} alt="Logo da Marvel" />
+            <img src={logoMarvel} alt="Logo da Marvel" className="logo" />
           </div>
-          <div>
+          <div className="header-content">
             <h1>EXPLORE O UNIVERSO</h1>
             <h4>
               Mergulhe no domínio deslumbrante de todos os personagens clássicos
@@ -104,9 +104,9 @@ function HeroesArray({ onSwitchFavorite }) {
             onFilterByName={onFilterByName}
           />
         </div>
-        <div>
-          <div>
-            <p>Encontramos {numberHeroes} heróis</p>
+        <div className="content-container">
+          <div className="heroes-info">
+            <p className="heroes-count">Encontrados {numberHeroes} heróis</p>
             <Toggle
               toggleState={toggleState}
               handleToggleChange={handleToggleChange}

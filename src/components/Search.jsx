@@ -1,5 +1,6 @@
 import { useState } from "react";
 import searchIcon from "../assets/busca/Lupa/Shape.png";
+import "../style/Search.css"
 
 function Search({ tasks, onFilterByName }) {
   const [searchInput, setSearchInput] = useState("");

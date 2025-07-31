@@ -28,6 +28,6 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />
-    <footer>Criado por Rodrigo Silva</footer>
+    <footer><span></span></footer>
   </StrictMode>
 );

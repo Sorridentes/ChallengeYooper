@@ -1,5 +1,6 @@
 import heroIcon from "../assets/icones/heroi/noun_Superhero_2227044.png";
-import heart from "../assets/icones/heart/Path@1,5x.png";
+import heart from "../assets/icones/heart/Path.svg";
+import "../style/Toggle.css";
 
 function Toggle({ toggleState, handleToggleChange }) {
   return (
