@@ -12,6 +12,7 @@
   margin: 10px 0;
   height: 200px;
   width: auto;
+  cursor: pointer;
 }
 
 .image-wrapper {

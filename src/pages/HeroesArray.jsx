@@ -39,6 +39,7 @@ function HeroesArray({ onSwitchFavorite }) {
       setFilteredTasks(tasksWithFavorites);
       setNumberHeroes(tasksWithFavorites.length);
     }
+    applyFilters();
   }, []);
 
   useEffect(() => {
@@ -63,7 +64,8 @@ function HeroesArray({ onSwitchFavorite }) {
     }
 
     if (toggle) result = result.filter((task) => task.favorite);
-    else result = result.sort((a, b) => a.name.localeCompare(b.name));
+
+    result = result.sort((a, b) => a.name.localeCompare(b.name));
 
     setFilteredTasks(result);
     setNumberHeroes(result.length);
