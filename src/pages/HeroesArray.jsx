@@ -17,7 +17,9 @@ function HeroesArray({ onSwitchFavorite }) {
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [numberHeroes, setNumberHeroes] = useState();
   const [toggleState, setToggleState] = useState(false);
-  const [countFavorite, setCountFavorite] = useState(0);
+  const [countFavorite, setCountFavorite] = useState(
+    JSON.parse(localStorage.getItem("countFavorite")) || 0
+  );
   const [searchTerm, setSearchInput] = useState("");
 
   useEffect(() => {
@@ -42,6 +44,10 @@ function HeroesArray({ onSwitchFavorite }) {
   useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
+
+  useEffect(() => {
+    localStorage.setItem("countFavorite", countFavorite);
+  }, [countFavorite]);
 
   function applyFilters(
     baseTasks = tasks,
@@ -106,7 +112,10 @@ function HeroesArray({ onSwitchFavorite }) {
         </div>
         <div className="content-container">
           <div className="heroes-info">
-            <p className="heroes-count">Encontrados {numberHeroes} heróis</p>
+            <p className="heroes-count">
+              Encontrado{numberHeroes !== 1 ? "s" : ""} {numberHeroes} herói
+              {numberHeroes !== 1 ? "s" : ""}
+            </p>
             <Toggle
               toggleState={toggleState}
               handleToggleChange={handleToggleChange}

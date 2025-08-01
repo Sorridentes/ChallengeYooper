@@ -5,7 +5,7 @@ import "../style/Toggle.css";
 function Toggle({ toggleState, handleToggleChange }) {
   return (
     <div className="toggle-container">
-      <div className="toggle-text">
+      <div className={`toggle-text ${toggleState ? "grayscale" : ""}`}>
         <img src={heroIcon} alt="Icone de Heroi" />
         <p>Ordenar por nome - A/Z</p>
       </div>
@@ -17,7 +17,7 @@ function Toggle({ toggleState, handleToggleChange }) {
         />
         <span className="slider"></span>
       </label>
-      <div className="toggle-text">
+      <div className={`toggle-text ${!toggleState ? "grayscale" : ""}`}>
         <img src={heart} alt="Icone de Favorito" />
         <p>Somente favoritos</p>
       </div>

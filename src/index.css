@@ -24,10 +24,13 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   font-family: "Work Sans", sans-serif;
   color: #404040;
   min-height: 100vh;
   line-height: 1.5;
+  margin: 0;
 }
 
 img {
@@ -38,4 +41,8 @@ img {
 footer {
   background: #ff1510;
   height: 2em;
+}
+
+main {
+  flex: 1;
 }

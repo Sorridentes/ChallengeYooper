@@ -1,20 +1,26 @@
 import { useState } from "react";
 import searchIcon from "../assets/busca/Lupa/Shape.png";
-import "../style/Search.css"
+import "../style/Search.css";
 
 function Search({ tasks, onFilterByName }) {
   const [searchInput, setSearchInput] = useState("");
-  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const filteredNames = tasks
+    .filter((hero) =>
+      hero.name.toLowerCase().includes(searchInput.toLowerCase())
+    )
+    .map((hero) => hero.name);
 
   return (
     <div className="search-container">
-      <div>
+      <div className="search-input-wrapper">
         <img
           src={searchIcon}
           alt="ícone de busca"
           onClick={() => {
             onFilterByName(searchInput);
-            setSuggestions([]);
+            setShowSuggestions(false);
           }}
         />
         <input
@@ -24,43 +30,35 @@ function Search({ tasks, onFilterByName }) {
           onChange={(event) => {
             const value = event.target.value;
             setSearchInput(value);
-
-            if (value.length == 0) {
-              setSuggestions([]);
-              return;
-            }
-
-            const filteredNames = tasks
-              .map((hero) => hero.name)
-              .filter((name) =>
-                name.toLowerCase().includes(value.toLowerCase())
-              );
-            setSuggestions(filteredNames);
+            setShowSuggestions(value.length > 0);
           }}
+          onFocus={() => setShowSuggestions(searchInput.length > 0)}
+          onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
               onFilterByName(searchInput);
-              setSuggestions([]);
+              setShowSuggestions(false);
             }
           }}
         />
+
+        {showSuggestions && filteredNames.length > 0 && (
+          <ul className="suggestions-dropdown">
+            {filteredNames.map((name, id) => (
+              <li
+                key={id}
+                onClick={() => {
+                  setSearchInput(name);
+                  onFilterByName(name);
+                  setShowSuggestions(false);
+                }}
+              >
+                {name}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
-      {suggestions.length > 0 && (
-        <ul>
-          {suggestions.map((name, id) => (
-            <li
-              key={id}
-              onClick={() => {
-                setSearchInput(name);
-                setSuggestions([]);
-                onFilterByName(name);
-              }}
-            >
-              {name}
-            </li>
-          ))}
-        </ul>
-      )}
     </div>
   );
 }

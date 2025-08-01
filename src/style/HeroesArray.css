@@ -1,3 +1,6 @@
+.root {
+  background: #fdecec;
+}
 .heart-svg {
   width: 32px;
   height: 32px;
@@ -22,7 +25,6 @@
   flex-direction: column;
   align-items: center;
   width: auto;
-
 }
 
 .logo {
@@ -62,4 +64,5 @@
   font-size: 0.8em;
   font-weight: bolder;
   color: #b9b9b9;
+  height: 20px;
 }

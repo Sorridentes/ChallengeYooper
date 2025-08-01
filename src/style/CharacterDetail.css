@@ -1,0 +1,78 @@
+.character-detail-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  color: #333;
+}
+
+.character-header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: #000;
+}
+
+.character-description {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.character-stats {
+  display: flex;
+  gap: 3rem;
+  margin: 2rem 0;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.rating-section {
+  margin: 2rem 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 0;
+}
+
+.rating-section h2 {
+  font-size: 1.5rem;
+}
+
+.last-comic {
+  margin: 1rem 0;
+  font-style: italic;
+}
+
+.releases-section h2 {
+  font-size: 1.8rem;
+  margin: 2rem 0 1rem;
+}
+
+.releases-list {
+  list-style: none;
+  padding: 0;
+}
+
+.releases-list li {
+  margin-bottom: 1.5rem;
+}
+
+.releases-list li strong {
+  display: block;
+  font-size: 1.2rem;
+}
+
+.releases-list li p {
+  margin: 0.3rem 0 0;
+  color: #666;
+}
