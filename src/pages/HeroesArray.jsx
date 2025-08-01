@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import "../style/HeroesArray.css";
-import data from "../apiMavel.json";
+import heroes from "../apiMavel.json";
 import logoMarvel from "../assets/logo/Group.png";
 import Search from "../components/Search";
 import Toggle from "../components/Toggle";
 import CharactersCards from "../components/CharactersCards";
+import { useSearchParams } from "react-router-dom";
 
 function HeroesArray({ onSwitchFavorite }) {
   // const API_TS_KY = "29072025";
@@ -14,14 +15,16 @@ function HeroesArray({ onSwitchFavorite }) {
   const [tasks, setTasks] = useState(
     JSON.parse(localStorage.getItem("tasks")) || []
   );
-  const [filteredTasks, setFilteredTasks] = useState([]);
-  const [numberHeroes, setNumberHeroes] = useState();
-  const [toggleState, setToggleState] = useState(false);
   const [countFavorite, setCountFavorite] = useState(
     JSON.parse(localStorage.getItem("countFavorite")) || 0
   );
+  const [searchParams] = useSearchParams();
+  const [filteredTasks, setFilteredTasks] = useState([]);
+  const [numberHeroes, setNumberHeroes] = useState();
+  const [toggleState, setToggleState] = useState(false);
   const [searchTerm, setSearchInput] = useState("");
 
+  
   useEffect(() => {
     // Ao carregar a página, tenta pegar do localStorage
     const storedTasks = JSON.parse(localStorage.getItem("tasks"));
@@ -31,7 +34,7 @@ function HeroesArray({ onSwitchFavorite }) {
       setNumberHeroes(storedTasks.length);
     } else {
       // Se não houver, carrega do JSON e inicializa favoritos
-      const tasksWithFavorites = data.data.results.map((task) => ({
+      const tasksWithFavorites = heroes.data.results.map((task) => ({
         ...task,
         favorite: false,
       }));
@@ -39,6 +42,7 @@ function HeroesArray({ onSwitchFavorite }) {
       setFilteredTasks(tasksWithFavorites);
       setNumberHeroes(tasksWithFavorites.length);
     }
+    setSearchInput(searchParams.get("search") || "");
     applyFilters();
   }, []);
 

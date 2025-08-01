@@ -1,16 +1,24 @@
 import { useState } from "react";
 import searchIcon from "../assets/busca/Lupa/Shape.png";
 import "../style/Search.css";
+import { useNavigate } from "react-router-dom";
 
 function Search({ tasks, onFilterByName }) {
   const [searchInput, setSearchInput] = useState("");
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const navigate = useNavigate();
 
   const filteredNames = tasks
     .filter((hero) =>
       hero.name.toLowerCase().includes(searchInput.toLowerCase())
     )
     .map((hero) => hero.name);
+
+  function onSearchHeroClick() {
+    const query = new URLSearchParams();
+    query.set("search", searchInput);
+    navigate(`/?${query.toString()}`);
+  }
 
   return (
     <div className="search-container">
@@ -19,7 +27,11 @@ function Search({ tasks, onFilterByName }) {
           src={searchIcon}
           alt="ícone de busca"
           onClick={() => {
-            onFilterByName(searchInput);
+            {
+              onFilterByName
+                ? onFilterByName(searchInput)
+                : onSearchHeroClick();
+            }
             setShowSuggestions(false);
           }}
         />
@@ -36,7 +48,11 @@ function Search({ tasks, onFilterByName }) {
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
-              onFilterByName(searchInput);
+              {
+                onFilterByName
+                  ? onFilterByName(searchInput)
+                  : onSearchHeroClick();
+              }
               setShowSuggestions(false);
             }
           }}
@@ -49,7 +65,11 @@ function Search({ tasks, onFilterByName }) {
                 key={id}
                 onClick={() => {
                   setSearchInput(name);
-                  onFilterByName(name);
+                  {
+                    onFilterByName
+                      ? onFilterByName(searchInput)
+                      : onSearchHeroClick();
+                  }
                   setShowSuggestions(false);
                 }}
               >
