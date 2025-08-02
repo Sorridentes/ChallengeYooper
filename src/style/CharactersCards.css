@@ -56,3 +56,8 @@
 .character-card svg {
   width: 15px;
 }
+
+svg {
+  stroke-width: 2px;
+  stroke: #ff1510;
+}

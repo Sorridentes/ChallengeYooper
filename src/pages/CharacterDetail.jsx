@@ -9,13 +9,7 @@ import marvelLogo from "../assets/logo/Group.png";
 import book from "../assets/icones/book/Group.png";
 import video from "../assets/icones/video/Shape.png";
 
-function CharacterDetail({
-  tasks,
-  setTasks,
-  countFavorite,
-  setCountFavorite,
-  onSwitchFavorite,
-}) {
+function CharacterDetail({ tasks, onSwitchFavorite }) {
   const [character, setCharacter] = useState(null);
   const [searchParams] = useSearchParams();
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,8 +28,8 @@ function CharacterDetail({
 
   function formatMarvelDate(dateString) {
     const date = new Date(dateString);
-    const options = { day: "2-digit", month: "long", year: "numeric" };
-    return date.toLocaleDateString("pt-BR", options);
+    const options = { day: "2-digit", month: "short", year: "numeric" };
+    return date.toLocaleDateString("pt-BR", options).replace(/ de /g, " ");
   }
 
   return (
@@ -51,7 +45,15 @@ function CharacterDetail({
         />
       </header>
       <section className="character-detail">
+        <div className="watermark">{character.name.split("(")[0]}</div>
         <div className="character-main-info">
+          <figure>
+            <img
+              src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
+              alt={character.name}
+              className="main-character-img"
+            />
+          </figure>
           <div className="character-info">
             <div className="character-header">
               <h1>{character.name}</h1>
@@ -67,22 +69,24 @@ function CharacterDetail({
             </div>
             <p className="character-text">{character.description}</p>
             <div className="character-stats">
-              <div>
-                <h6>Quadrinhos</h6>
-                <div className="icon">
-                  <img src={book} alt="Icone de livro" />
-                  <span>{character.comics.available}</span>
+              <section className="icons-info">
+                <div className="icon-info">
+                  <h5>Quadrinhos</h5>
+                  <div className="icon">
+                    <img src={book} alt="Icone de livro" />
+                    <span>{character.comics.available}</span>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <h6>Filmes</h6>
-                <div className="icon">
-                  <img src={video} alt="Icone para filme" />
-                  <span>{character.movies}</span>
+                <div className="icon-info">
+                  <h5>Filmes</h5>
+                  <div className="icon">
+                    <img src={video} alt="Icone para filme" />
+                    <span>{character.movies}</span>
+                  </div>
                 </div>
-              </div>
+              </section>
               <div>
-                <span>Rating:</span>
+                <h5>Rating:</h5>
                 <div style={{ display: "flex", gap: "2px" }}>
                   {[...Array(5)].map((_, i) => (
                     <svg
@@ -103,16 +107,15 @@ function CharacterDetail({
                 </div>
               </div>
               <div className="last-comic">
-                <h3>Último quadrinho:</h3>
-                <span>{formatMarvelDate(character.modified)}</span>
+                <h5>Último quadrinho:</h5>
+                <span>
+                  {character.comics.returned > 0
+                    ? formatMarvelDate(character.modified)
+                    : "-"}
+                </span>
               </div>
             </div>
           </div>
-          <img
-            src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
-            alt={character.name}
-            className="main-character-img"
-          />
         </div>
       </section>
       <section className="character-comics">

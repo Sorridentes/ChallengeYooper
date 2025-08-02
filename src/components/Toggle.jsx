@@ -12,7 +12,7 @@ function Toggle({ toggleState, handleToggleChange }) {
       <label className="switch">
         <input
           type="checkbox"
-          checked={toggleState}
+          defaultChecked={toggleState}
           onClick={handleToggleChange}
         />
         <span className="slider"></span>
