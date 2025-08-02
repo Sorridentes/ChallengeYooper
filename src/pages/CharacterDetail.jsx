@@ -9,16 +9,21 @@ import marvelLogo from "../assets/logo/Group.png";
 import book from "../assets/icones/book/Group.png";
 import video from "../assets/icones/video/Shape.png";
 
-function CharacterDetail({ onSwitchFavorite }) {
+function CharacterDetail({
+  tasks,
+  setTasks,
+  countFavorite,
+  setCountFavorite,
+  onSwitchFavorite,
+}) {
   const [character, setCharacter] = useState(null);
   const [searchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const id = searchParams.get("id");
     if (id) {
-      const found = JSON.parse(localStorage.getItem("tasks")).find(
-        (char) => char.id.toString() === id
-      );
+      const found = tasks.find((char) => char.id.toString() === id);
       setCharacter(found);
     }
   }, [searchParams]);
@@ -39,7 +44,11 @@ function CharacterDetail({ onSwitchFavorite }) {
         <a href="/">
           <img src={marvelLogo} alt="Marvel Logo" className="logo" />
         </a>
-        <Search tasks={heroes.data.results} />
+        <Search
+          tasks={heroes.data.results}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </header>
       <section className="character-detail">
         <div className="character-main-info">
@@ -48,11 +57,12 @@ function CharacterDetail({ onSwitchFavorite }) {
               <h1>{character.name}</h1>
               <FavoriteButton
                 isFavorite={character.favorite}
-                onSwitchFavorite={onSwitchFavorite(
-                  character.id,
-                  JSON.parse(localStorage.getItem("tasks")),
-                  JSON.parse(localStorage.getItem("countFavorite"))
-                )}
+                onSwitchFavorite={() => {
+                  const updatedTasks = onSwitchFavorite(character.id);
+                  setCharacter(
+                    updatedTasks.find((task) => task.id === character.id)
+                  );
+                }}
               />
             </div>
             <p className="character-text">{character.description}</p>

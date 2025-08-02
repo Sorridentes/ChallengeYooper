@@ -3,7 +3,10 @@ function ComicsCards({ character }) {
     <div className="comics-container">
       {character.comics.items.slice(0, 10).map((comic) => {
         return (
-          <div className="comic-card">
+          <div
+            key={Number(comic.resourceURI.split("/").pop())}
+            className="comic-card"
+          >
             <img
               src="https://cdn.marvel.com/content/1x/default/comic-no-img.jpg"
               alt="Imagem não disponível"

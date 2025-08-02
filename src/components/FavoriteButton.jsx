@@ -1,9 +1,9 @@
-function FavoriteButton({ isFavorite, onSwitchFavorite, onClick }) {
+function FavoriteButton({ isFavorite, onSwitchFavorite }) {
   return (
-    <label className="favorite-checkbox" onClick={onClick ? onClick : ""}>
+    <label className="favorite-checkbox" onClick={(e) => e.stopPropagation()}>
       <input
         type="checkbox"
-        checked={isFavorite}
+        defaultChecked={isFavorite}
         onChange={onSwitchFavorite}
         style={{ display: "none" }}
       />

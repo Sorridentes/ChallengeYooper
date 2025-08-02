@@ -5,6 +5,7 @@
   width: 100%;
   align-items: center;
 }
+
 .character-card {
   display: flex;
   flex-direction: column;

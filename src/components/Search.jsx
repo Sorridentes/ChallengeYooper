@@ -1,23 +1,19 @@
 import { useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import searchIcon from "../assets/busca/Lupa/Shape.png";
 import "../style/Search.css";
 
-function Search({ tasks, onFilterByName }) {
-  const [searchParams] = useSearchParams();
-  const [searchInput, setSearchInput] = useState(
-    searchParams.get("search") || ""
-  );
+function Search({ tasks, searchTerm, setSearchTerm, onFilterByName }) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
 
   const filteredNames = tasks
     .filter((hero) =>
-      hero.name.toLowerCase().includes(searchInput.toLowerCase())
+      hero.name.toLowerCase().includes(searchTerm.toLowerCase())
     )
     .map((hero) => hero.name);
 
-  function onSearchHeroClick(search = searchInput) {
+  function onSearchHeroClick(search = searchTerm) {
     const query = new URLSearchParams();
     query.set("search", search);
     navigate(`/?${query.toString()}`);
@@ -31,9 +27,7 @@ function Search({ tasks, onFilterByName }) {
           alt="ícone de busca"
           onClick={() => {
             {
-              onFilterByName
-                ? onFilterByName(searchInput)
-                : onSearchHeroClick();
+              onFilterByName ? onFilterByName(searchTerm) : onSearchHeroClick();
             }
             setShowSuggestions(false);
           }}
@@ -41,19 +35,19 @@ function Search({ tasks, onFilterByName }) {
         <input
           type="text"
           placeholder="Procure por heróis"
-          value={searchInput}
+          value={searchTerm}
           onChange={(event) => {
             const value = event.target.value;
-            setSearchInput(value);
+            setSearchTerm(value);
             setShowSuggestions(value.length > 0);
           }}
-          onFocus={() => setShowSuggestions(searchInput.length > 0)}
+          onFocus={() => setShowSuggestions(searchTerm.length > 0)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           onKeyDown={(event) => {
             if (event.key === "Enter") {
               {
                 onFilterByName
-                  ? onFilterByName(searchInput)
+                  ? onFilterByName(searchTerm)
                   : onSearchHeroClick();
               }
               setShowSuggestions(false);
@@ -67,7 +61,7 @@ function Search({ tasks, onFilterByName }) {
               <li
                 key={id}
                 onClick={() => {
-                  setSearchInput(name);
+                  setSearchTerm(name);
                   {
                     onFilterByName
                       ? onFilterByName(name)

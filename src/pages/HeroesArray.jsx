@@ -7,29 +7,22 @@ import Toggle from "../components/Toggle";
 import CharactersCards from "../components/CharactersCards";
 import { useSearchParams } from "react-router-dom";
 
-function HeroesArray({ onSwitchFavorite }) {
+function HeroesArray({ tasks, setTasks, onSwitchFavorite }) {
   // const API_TS_KY = "29072025";
   // const API_PUBLIC_KEY = "51513048ccbb557a3edab95f893c704d";
   // const API_HASH_KEY = "7b3ca3b47d3c535bc3075c437b6c5892";
   // const API_URL = "http://gateway.marvel.com/v1/public";
-  const [tasks, setTasks] = useState(
-    JSON.parse(localStorage.getItem("tasks")) || []
-  );
-  const [countFavorite, setCountFavorite] = useState(
-    JSON.parse(localStorage.getItem("countFavorite")) || 0
-  );
   const [searchParams] = useSearchParams();
   const [filteredTasks, setFilteredTasks] = useState([]);
   const [numberHeroes, setNumberHeroes] = useState();
   const [toggleState, setToggleState] = useState(false);
-  const [searchTerm, setSearchInput] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks"));
     let initialTasks;
-    if (storedTasks && storedTasks.length > 0) {
-      initialTasks = storedTasks;
-    } else {
+
+    if (tasks && tasks.length > 0) initialTasks = tasks;
+    else {
       initialTasks = heroes.data.results.map((task) => ({
         ...task,
         favorite: false,
@@ -40,17 +33,9 @@ function HeroesArray({ onSwitchFavorite }) {
     setTasks(initialTasks);
 
     const search = searchParams.get("search") || "";
-    setSearchInput(search);
+    setSearchTerm(search);
     applyFilters(initialTasks, search, toggleState);
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks]);
-
-  useEffect(() => {
-    localStorage.setItem("countFavorite", countFavorite);
-  }, [countFavorite]);
 
   function applyFilters(
     baseTasks = tasks,
@@ -74,16 +59,12 @@ function HeroesArray({ onSwitchFavorite }) {
   }
 
   function onFilterByName(name) {
-    setSearchInput(name);
+    setSearchTerm(name);
     applyFilters(tasks, name, toggleState);
   }
 
   function updateFavorite(id) {
-    const updatedTasks = onSwitchFavorite(id, tasks, countFavorite);
-
-    setTasks(updatedTasks);
-    setCountFavorite(updatedTasks.filter((task) => task.favorite).length);
-    applyFilters(updatedTasks, searchTerm, toggleState);
+    applyFilters(onSwitchFavorite(id), searchTerm, toggleState);
   }
 
   function handleToggleChange() {
@@ -110,7 +91,8 @@ function HeroesArray({ onSwitchFavorite }) {
           </div>
           <Search
             tasks={tasks}
-            searchInput={searchTerm}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
             onFilterByName={onFilterByName}
           />
         </div>
