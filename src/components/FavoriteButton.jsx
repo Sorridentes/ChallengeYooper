@@ -17,7 +17,6 @@ function FavoriteButton({ isFavorite, onSwitchFavorite }) {
         viewBox="0 0 20 20"
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"
-        xmlns:xlink="http://www.w3.org/1999/xlink"
       >
         <g id="Page-1" fill={isFavorite ? "#e62429" : "none"}>
           <g id="Guide" transform="translate(-231.000000, -828.000000)">

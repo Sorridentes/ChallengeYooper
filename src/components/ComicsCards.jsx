@@ -1,3 +1,5 @@
+import "../style/ComicsCards.css";
+
 function ComicsCards({ character }) {
   return (
     <div

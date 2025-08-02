@@ -137,18 +137,3 @@
   flex-direction: column;
   width: 100%;
 }
-
-.comics-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 150px);
-  gap: 100px;
-}
-
-.comic-card {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 150px;
-  color: #404040;
-  font-weight: bold;
-}
