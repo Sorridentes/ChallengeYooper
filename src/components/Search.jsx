@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import searchIcon from "../assets/busca/Lupa/Shape.png";
 import "../style/Search.css";
-import { useNavigate } from "react-router-dom";
 
 function Search({ tasks, onFilterByName }) {
-  const [searchInput, setSearchInput] = useState("");
+  const [searchParams] = useSearchParams();
+  const [searchInput, setSearchInput] = useState(
+    searchParams.get("search") || ""
+  );
   const [showSuggestions, setShowSuggestions] = useState(false);
   const navigate = useNavigate();
 
@@ -14,9 +17,9 @@ function Search({ tasks, onFilterByName }) {
     )
     .map((hero) => hero.name);
 
-  function onSearchHeroClick() {
+  function onSearchHeroClick(search = searchInput) {
     const query = new URLSearchParams();
-    query.set("search", searchInput);
+    query.set("search", search);
     navigate(`/?${query.toString()}`);
   }
 
@@ -67,8 +70,8 @@ function Search({ tasks, onFilterByName }) {
                   setSearchInput(name);
                   {
                     onFilterByName
-                      ? onFilterByName(searchInput)
-                      : onSearchHeroClick();
+                      ? onFilterByName(name)
+                      : onSearchHeroClick(name);
                   }
                   setShowSuggestions(false);
                 }}

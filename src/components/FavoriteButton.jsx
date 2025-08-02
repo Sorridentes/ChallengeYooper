@@ -1,6 +1,6 @@
 function FavoriteButton({ isFavorite, onSwitchFavorite, onClick }) {
   return (
-    <label className="favorite-checkbox" onClick={onClick}>
+    <label className="favorite-checkbox" onClick={onClick ? onClick : ""}>
       <input
         type="checkbox"
         checked={isFavorite}

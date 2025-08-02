@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "../style/HeroesArray.css";
-import heroes from "../apiMavel.json";
+import heroes from "../mavel-heroes.json";
 import logoMarvel from "../assets/logo/Group.png";
 import Search from "../components/Search";
 import Toggle from "../components/Toggle";
@@ -24,26 +24,24 @@ function HeroesArray({ onSwitchFavorite }) {
   const [toggleState, setToggleState] = useState(false);
   const [searchTerm, setSearchInput] = useState("");
 
-  
   useEffect(() => {
-    // Ao carregar a página, tenta pegar do localStorage
     const storedTasks = JSON.parse(localStorage.getItem("tasks"));
+    let initialTasks;
     if (storedTasks && storedTasks.length > 0) {
-      setTasks(storedTasks);
-      setFilteredTasks(storedTasks);
-      setNumberHeroes(storedTasks.length);
+      initialTasks = storedTasks;
     } else {
-      // Se não houver, carrega do JSON e inicializa favoritos
-      const tasksWithFavorites = heroes.data.results.map((task) => ({
+      initialTasks = heroes.data.results.map((task) => ({
         ...task,
         favorite: false,
+        rating: Math.floor(Math.random() * 6),
+        movies: Math.floor(Math.random() * 101),
       }));
-      setTasks(tasksWithFavorites);
-      setFilteredTasks(tasksWithFavorites);
-      setNumberHeroes(tasksWithFavorites.length);
     }
-    setSearchInput(searchParams.get("search") || "");
-    applyFilters();
+    setTasks(initialTasks);
+
+    const search = searchParams.get("search") || "";
+    setSearchInput(search);
+    applyFilters(initialTasks, search, toggleState);
   }, []);
 
   useEffect(() => {

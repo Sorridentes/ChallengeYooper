@@ -22,7 +22,10 @@ function onSwitchFavorite(taskId, tasks, countFavorite) {
 
 const router = createBrowserRouter([
   { path: "/", element: <HeroesArray onSwitchFavorite={onSwitchFavorite} /> },
-  { path: "/descricao", element: <CharacterDetail /> },
+  {
+    path: "/descricao",
+    element: <CharacterDetail onSwitchFavorite={onSwitchFavorite} />,
+  },
 ]);
 
 createRoot(document.getElementById("root")).render(
