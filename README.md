@@ -6,7 +6,7 @@ A aplicação conta com duas páginas principais: uma de listagem, onde são exi
 
 Além dos requisitos funcionais, o projeto prioriza boas práticas de código, organização, responsividade e experiência do usuário. O código está disponível neste repositório para avaliação, com instruções claras para instalação e execução.
 
-## Como instalar, testar e executar o projeto
+## Como instalar e executar o projeto
 
 ### Instalação
 
